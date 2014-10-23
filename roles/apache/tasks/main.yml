@@ -1,0 +1,10 @@
+---
+- name: install apache
+  yum: name=httpd state=present
+  tags: apache
+
+- name: copy virtual host config for site
+  template: src=site.conf.j2 dest=/etc/httpd/conf.d/site.conf
+
+- name: ensure apache is running
+  service: name=httpd state=started

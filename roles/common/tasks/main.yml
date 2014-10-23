@@ -1,0 +1,26 @@
+---
+- name: download remi release repo for php
+  get_url: url=http://rpms.famillecollet.com/enterprise/remi-release-6.rpm dest=/tmp/remi-release-6.rpm
+  tags: 
+    - php-fpm
+    - repo
+
+- name: install remi repo
+  shell: /bin/rpm -Uvh /tmp/remi-release-6.rpm
+  register: remi_repo_result
+  failed_when: "'conflict' in remi_repo_result.stderr"
+  tags: 
+    - php-fpm
+    - repo
+
+- name: enable remi repo
+  ini_file: 
+    dest=/etc/yum.repos.d/remi.repo
+    section=remi
+    option=enabled
+    value=1
+  tags: repo
+
+- name: update yum
+  yum: name=* state=latest
+

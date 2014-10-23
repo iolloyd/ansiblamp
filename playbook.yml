@@ -1,0 +1,15 @@
+---
+- hosts: web 
+
+  sudo: true
+  user: vagrant
+  gather_facts: false
+
+  vars_files:
+    - vars.yml
+
+  roles:
+    - common
+    - apache
+    - mysql
+    - php

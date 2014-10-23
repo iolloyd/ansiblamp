@@ -1,0 +1,5 @@
+server_name: web.lb.dev
+site_folder: /var/www
+apache_port: 80
+mysql_root_password: root
+
